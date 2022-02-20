@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <MiniRockbot />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import MiniRockbot from './components/mini-rockbot-container/MiniRockbot.vue';
 
 @Options({
   components: {
-    HelloWorld,
+    MiniRockbot,
   },
 })
 export default class App extends Vue {}
@@ -22,6 +21,8 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: auto;
   margin-top: 60px;
+  max-width: 350px;
 }
 </style>
