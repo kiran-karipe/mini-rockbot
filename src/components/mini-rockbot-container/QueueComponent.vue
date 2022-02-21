@@ -1,16 +1,24 @@
+<script setup lang="ts">
+  import { defineProps } from "vue";
+  interface Props {
+    queue: [any]
+  }
+  const props = defineProps<Props>();
+  console.log(props);
+</script>
+
 <template>
   <p class="comingup">Coming up</p>
-  <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
-    <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>
+  <ul class="infinite-list" style="overflow: auto">
+    <li v-for="item in props.queue" :key="item" class="infinite-list-item">
+      <p>{{item.artist}}</p>
+      <span>{{item.song}}</span>
+    </li>
   </ul>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-const count = ref(0);
-const load = () => {
-  count.value += 2
-}
+<script lang="ts">
+
 </script>
 
 <style>
