@@ -10,8 +10,8 @@
   <div class="main">
     <el-avatar shape="square" :size="80" :src="props.nowPlaying.artwork_small"></el-avatar>
     <div class="songDetails">
-      <p>{{props.nowPlaying.artist}}</p>
-      <span>{{props.nowPlaying.song}}</span>
+      <p class="artist">{{props.nowPlaying.artist}}</p>
+      <span class="song">{{props.nowPlaying.song}}</span>
     </div>
   </div>
 </template>
@@ -30,8 +30,14 @@
   margin-left: 5%;
 }
 
-p {
+.artist {
   font-weight: bold;
   margin: 0%;
+  color: #409eff;
 }
+
+.song {
+  color: #409eff;
+}
+
 </style>

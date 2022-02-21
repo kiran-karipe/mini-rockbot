@@ -1,6 +1,6 @@
 <template>
   <CurrentPlaying :now-playing="nowPlayingResponse" />
-  <el-divider></el-divider>
+  <el-divider class="divider"></el-divider>
   <QueueComponent :queue="queue"/>
 </template>
 
@@ -31,3 +31,9 @@ export default class NowPlayingComponent extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.divider {
+  margin: 3% 0;
+}
+</style>
