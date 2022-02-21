@@ -1,3 +1,3 @@
 <template>
-  <header>Mini Rockbot</header>
+  <h3>Mini Rockbot</h3>
 </template>

@@ -16,13 +16,3 @@ import QueueComponent from './QueueComponent.vue';
 })
 export default class NowPlayingComponent extends Vue {}
 </script>
-
-<style scoped>
-.box-card {
-  text-align: center;
-  min-height: 400px;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  /* border-bottom: none; */
-}
-</style>

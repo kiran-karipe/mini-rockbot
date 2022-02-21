@@ -1,4 +1,5 @@
 <template>
+  <p class="comingup">Coming up</p>
   <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
     <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>
   </ul>
@@ -13,8 +14,14 @@ const load = () => {
 </script>
 
 <style>
+.comingup {
+  text-align: left;
+  margin: 0;
+  padding-left: 3%;
+  font-weight: bold;
+}
 .infinite-list {
-  height: 340px;
+  height: 300px;
   padding: 0;
   margin: 0;
   list-style: none;
