@@ -1,19 +1,3 @@
-<template>
-  <p class="title">Coming up</p>
-  <ul class="infinite-list" style="overflow: auto">
-    <li v-for="item in props.queue" :key="item" class="infinite-list-item">
-      <div class="songDetails">
-        <p class="artist">{{item.artist}}</p>
-        <p class="song">{{item.song}}</p>
-      </div>
-      <div class="voting">
-        <LikeComponent :counter="item.likes" :vote-up="true"/>
-        <LikeComponent :counter="item.likes" :vote-up="false"/>
-      </div>
-    </li>
-  </ul>
-</template>
-
 <script setup lang="ts">
   import { defineProps } from "vue";
   import LikeComponent from '../shared/LikeComponent.vue';
@@ -23,6 +7,22 @@
   }
   const props = defineProps<Props>();
 </script>
+
+<template>
+  <p class="title">Coming up</p>
+  <ul class="infinite-list" style="overflow: auto">
+    <li v-for="item in props.queue" :key="item" class="infinite-list-item">
+      <div class="songDetails">
+        <p class="artist">{{item.artist}}</p>
+        <p class="song">{{item.song}}</p>
+      </div>
+      <div class="voting">
+        <LikeComponent @click="$emit('vote-up',true, item.pick_id)" :counter="item.likes" :vote-up="true"/>
+        <LikeComponent @click="$emit('vote-up',false, item.pick_id)" :counter="item.dislikes" :vote-up="false"/>
+      </div>
+    </li>
+  </ul>
+</template>
 
 <style scoped>
 .title {

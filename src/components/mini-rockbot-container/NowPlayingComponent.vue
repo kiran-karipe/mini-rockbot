@@ -1,7 +1,7 @@
 <template>
   <CurrentPlaying :now-playing="nowPlayingResponse" />
   <el-divider class="divider"></el-divider>
-  <QueueComponent :queue="queue"/>
+  <QueueComponent :queue="queue" @vote-up="vote"/>
 </template>
 
 <script lang="ts">
@@ -23,17 +23,27 @@ export default class NowPlayingComponent extends Vue {
   mounted() {
     useNowPlaying()
       .fetchNowPlaying().then(() => {
-        const nowPlaying = {...mapState(useNowPlaying, {nowPlaying: 'getNowPlaying'}).nowPlaying()}
-        const queue = {...mapState(useNowPlaying, {getQueue: 'getQueue'}).getQueue()}
-        this.nowPlayingResponse = {...nowPlaying};
-        this.queue = queue;
+        this.updateDetails();
       });
+  }
+
+  vote(isLiked: boolean, pick_id: string) {
+    useNowPlaying().postVote(isLiked, pick_id).then(() => {
+      this.updateDetails();
+    })
+  }
+
+  updateDetails() {
+    const nowPlaying = {...mapState(useNowPlaying, {nowPlaying: 'getNowPlaying'}).nowPlaying()}
+    const queue = {...mapState(useNowPlaying, {getQueue: 'getQueue'}).getQueue()}
+    this.nowPlayingResponse = {...nowPlaying};
+    this.queue = queue;
   }
 }
 </script>
 
 <style scoped>
 .divider {
-  margin: 3% 0;
+  margin: 3% 0 2% 0;
 }
 </style>

@@ -7,6 +7,7 @@
 </script>
 
 <template>
+  <p class="title">Playing now</p>
   <div class="main">
     <el-avatar shape="square" :size="80" :src="props.nowPlaying.artwork_small"></el-avatar>
     <div class="songDetails">
@@ -17,6 +18,13 @@
 </template>
 
 <style scoped>
+.title {
+  text-align: left;
+  margin: 0;
+  padding-left: 3%;
+  font-weight: bold;
+  color: #409eff;
+}
 .main {
   display: flex;
 }
