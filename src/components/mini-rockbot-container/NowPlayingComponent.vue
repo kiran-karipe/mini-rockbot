@@ -20,7 +20,7 @@ import { mapState } from 'pinia';
 export default class NowPlayingComponent extends Vue {
   nowPlayingResponse = {};
   queue = [];
-  created() {
+  mounted() {
     useNowPlaying()
       .fetchNowPlaying().then(() => {
         const nowPlaying = {...mapState(useNowPlaying, {nowPlaying: 'getNowPlaying'}).nowPlaying()}

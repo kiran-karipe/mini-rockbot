@@ -1,5 +1,6 @@
 <template>
   <HeaderComponent />
+  <el-divider class="divider"></el-divider>
   <TabsComponent />
 </template>
 
@@ -17,3 +18,9 @@ import HeaderComponent from '../HeaderComponent.vue';
 
 export default class MiniRockbot extends Vue {}
 </script>
+
+<style scoped>
+.divider {
+  margin: 0 0 3% 0;
+}
+</style>

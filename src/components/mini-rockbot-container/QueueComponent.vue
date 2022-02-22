@@ -1,14 +1,5 @@
-<script setup lang="ts">
-  import { defineProps } from "vue";
-  interface Props {
-    queue: [any]
-  }
-  const props = defineProps<Props>();
-  console.log(props);
-</script>
-
 <template>
-  <p class="comingup">Coming up</p>
+  <p class="title">Coming up</p>
   <ul class="infinite-list" style="overflow: auto">
     <li v-for="item in props.queue" :key="item" class="infinite-list-item">
       <div class="songDetails">
@@ -16,19 +7,25 @@
         <p class="song">{{item.song}}</p>
       </div>
       <div class="voting">
-        <el-badge :value="item.likes" :max="99" type="success"></el-badge>
-        <el-badge :value="item.dislikes" :max="99" class="item"></el-badge>
+        <LikeComponent :counter="item.likes" :vote-up="true"/>
+        <LikeComponent :counter="item.likes" :vote-up="false"/>
       </div>
     </li>
   </ul>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+  import { defineProps } from "vue";
+  import LikeComponent from '../shared/LikeComponent.vue';
 
+  interface Props {
+    queue: [any]
+  }
+  const props = defineProps<Props>();
 </script>
 
 <style scoped>
-.comingup {
+.title {
   text-align: left;
   margin: 0;
   padding-left: 3%;
@@ -76,9 +73,8 @@
 
 .voting {
   margin-right: 2%;
-}
-
-.upVote .el-badge__content--danger {
-  background-color: #67c23a;
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>
