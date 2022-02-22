@@ -20,7 +20,23 @@ import { mapState } from 'pinia';
 export default class NowPlayingComponent extends Vue {
   nowPlayingResponse = {};
   queue = [];
+  timer: any = -1;
   mounted() {
+    this.fetchData();
+  }
+
+  updated() {
+    this.timer = window.setInterval(() => {
+      console.log('calling')
+      this.fetchData()
+    }, 30000)
+  }
+  
+  unmounted() {
+    clearInterval(this.timer);
+  }
+
+  fetchData() {
     useNowPlaying()
       .fetchNowPlaying().then(() => {
         this.updateDetails();
