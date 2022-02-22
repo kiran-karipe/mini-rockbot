@@ -34,8 +34,12 @@
 }
 
 .songDetails {
+  width: 70%;
   padding-top: 2%;
   margin-left: 5%;
+  overflow: hidden;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .artist {
@@ -45,7 +49,10 @@
 }
 
 .song {
+  font-size: 14px;
   color: #409eff;
+  text-align: left;
+  text-overflow: ellipsis;
 }
 
 </style>

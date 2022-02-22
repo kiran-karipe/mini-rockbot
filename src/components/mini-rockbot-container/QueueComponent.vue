@@ -54,6 +54,8 @@
   width: 50%;
   padding-left: 3%;
   align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .artist {
@@ -69,6 +71,7 @@
   margin: 0%;
   text-align: left;
   color: black;
+  text-overflow: ellipsis;
 }
 
 .voting {

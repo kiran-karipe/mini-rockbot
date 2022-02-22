@@ -8,7 +8,12 @@
 </script>
 <template>
   <div class="topArtists">
-    <el-avatar v-for="artist in props.topArtists" class="artist" :key="artist.artist_id" shape="circle" :size="60" :src="artist.artwork_small"></el-avatar>
+    <el-avatar v-for="artist in props.topArtists"
+      class="artist" :key="artist.artist_id"
+      shape="circle" :size="60"
+      :src="artist.artwork_small"
+      @click="$emit('get-artist', artist.artist_id)"
+    ></el-avatar>
   </div>
 </template>
 

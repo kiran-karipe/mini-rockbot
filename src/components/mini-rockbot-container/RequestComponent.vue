@@ -1,7 +1,10 @@
 <script></script>
 <template>
   <p class="title">Top Artists</p>
-  <TopArtists :top-artists="topArtists"/>
+  <TopArtists
+    :top-artists="topArtists"
+    @get-artist="getArtistDetails"
+  />
   <SearchComponent />
 </template>
 
@@ -28,6 +31,11 @@ export default class RequestComponent extends Vue {
         const topArtists = {...mapState(useTopArtists, {topArtists: 'getTopArtists'}).topArtists()}
         this.topArtists = {...topArtists};
       })
+  }
+
+  getArtistDetails(artist_id: number) {
+    useTopArtists()
+      .getArtist(artist_id).then();
   }
 }
 </script>
