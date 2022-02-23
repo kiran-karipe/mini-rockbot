@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import CurrentPlaying from './CurrentPlaying.vue';
-import QueueComponent from './QueueComponent.vue';
+import CurrentPlaying from '../now-playing/CurrentPlaying.vue';
+import QueueComponent from '../now-playing/QueueComponent.vue';
 import { useNowPlaying } from '@/stores/nowPlaying';
 import { mapState } from 'pinia';
 
@@ -23,10 +23,10 @@ export default class NowPlayingComponent extends Vue {
   timer: any = -1;
   mounted() {
     this.fetchData();
-    this.timer = window.setInterval(() => {
-      console.log('calling')
-      this.fetchData()
-    }, 30000);
+    // this.timer = window.setInterval(() => {
+    //   console.log('calling')
+    //   this.fetchData()
+    // }, 30000);
   }
 
   unmounted() {

@@ -6,8 +6,8 @@
   />
   <el-divider class="divider"></el-divider>
   <InputComponent
-    :filtered-artists="filteredArtists"
-    @query-search="querySearch"
+    :suggestion-list="filteredArtists"
+    @query-search="browseArtists"
   />
 </template>
 
@@ -15,8 +15,8 @@
 import { Options, Vue } from 'vue-class-component';
 import { useTopArtists } from '@/stores/topArtists';
 import { mapState } from 'pinia';
-import TopArtists from './TopArtists.vue';
-import InputComponent from '../shared/InputComponent.vue';
+import TopArtists from './request-tab/TopArtists.vue';
+import InputComponent from '../shared/auto-complete/InputComponent.vue';
 
 @Options({
   components: {
@@ -43,7 +43,7 @@ export default class RequestComponent extends Vue {
       .getArtist(artist_id);
   }
 
-  querySearch(value: string) {
+  browseArtists(value: string) {
     if (value) {
       useTopArtists()
       .browseArtists(value).then(() => {

@@ -5,10 +5,9 @@ import Autocomplete from 'vue3-autocomplete';
 
 const input = ref('')
 interface Props {
-  filteredArtists: []
+  suggestionList: []
 }
 const props = defineProps<Props>();
-console.log(props.filteredArtists)
 </script>  
 
 <template>
@@ -16,14 +15,20 @@ console.log(props.filteredArtists)
       v-model="input"
       id="artists"
       @input="$emit('query-search', input)"
-      :results="props.filteredArtists"
       :debounce="1000"
       placeholder="Search Artists"
   ></Autocomplete>
+  <div class="list-popper">
+    <ul class="autocomplete-suggestion__list">
+      <li v-for="item in props.suggestionList" :key="item"
+        class="autocomplete-suggestion__list autocomplete-suggestion__list-item textAlign" 
+        role="option" aria-selected="false">
+        {{item}}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
-  .input {
-    width: 50%;
-  }
+@import "./InputComponent.css";
 </style>

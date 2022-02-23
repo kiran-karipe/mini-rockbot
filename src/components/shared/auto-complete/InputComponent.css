@@ -1,0 +1,45 @@
+.list-popper {
+  width: 50%;
+  margin: auto;
+  margin-top: 1%;
+  border: 1px solid #e4e7ed;
+  border-radius: 2px;
+}
+.autocomplete-suggestion__list {
+  overflow: auto;
+  max-height: 200px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.autocomplete-suggestion__list .autocomplete-suggestion__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  background: var(--el-color-primary-light-9);
+  margin: 5px;
+  color: var(--el-color-primary);
+  border-radius: 5px;
+  font-size: 13px;
+  padding-left: 5%;
+  cursor: pointer;
+}
+.autocomplete-suggestion__list .autocomplete-suggestion__list-item + .list-item {
+  margin-top: 10px;
+}
+.textAlign {
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
