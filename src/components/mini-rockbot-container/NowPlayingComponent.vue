@@ -23,13 +23,10 @@ export default class NowPlayingComponent extends Vue {
   timer: any = -1;
   mounted() {
     this.fetchData();
-  }
-
-  updated() {
     this.timer = window.setInterval(() => {
       console.log('calling')
       this.fetchData()
-    }, 30000)
+    }, 30000);
   }
 
   unmounted() {
@@ -44,7 +41,8 @@ export default class NowPlayingComponent extends Vue {
   }
 
   vote(isLiked: boolean, pick_id: number) {
-    useNowPlaying().postVote(isLiked, pick_id).then(() => {
+    useNowPlaying()
+      .postVote(isLiked, pick_id).then(() => {
       this.updateDetails();
     })
   }

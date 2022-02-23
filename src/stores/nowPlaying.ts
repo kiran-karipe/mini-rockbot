@@ -67,7 +67,7 @@ export const useNowPlaying = defineStore('nowPlaying-store', {
       } catch (err) {
         this.nowPlaying = {};
         this.queue = [];
-        console.error('Error loading now playing:', err);
+        console.error('Error posting vote:', err);
         return err;
       }
 
