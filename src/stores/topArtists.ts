@@ -6,7 +6,7 @@ export const useTopArtists = defineStore('topArtists-store', {
   state: () => {
     return {
       topArtists: [],
-      fetching: false
+      filteredArtists: []
     }
   },
 
@@ -15,14 +15,13 @@ export const useTopArtists = defineStore('topArtists-store', {
       return state.topArtists;
     },
 
-    isFetching(state) {
-      return state.fetching;
+    getFilteredArtists(state) {
+      return state.filteredArtists;
     }
   },
 
   actions: {
     async fetchTopArtists() {
-      this.fetching = true;
       const url = `${API_URL}` + 'top_artists';
       const options = {
         headers: {
@@ -36,15 +35,12 @@ export const useTopArtists = defineStore('topArtists-store', {
         this.topArtists = toRaw(result.response);
       } catch (err) {
         this.topArtists = [];
-        console.error('Error loading now playing:', err);
+        console.error('Error fetching top artists:', err);
         return err;
       }
-
-      this.fetching = false;
     },
 
     async getArtist(artist_id: number) {
-      this.fetching = true;
       const url = `${API_URL}` + 'request_artist?artist_id=' + artist_id;
       const options = {
         headers: {
@@ -54,16 +50,34 @@ export const useTopArtists = defineStore('topArtists-store', {
       const response = await fetch(url, options);
       try {
         const result = await response.json();
-        // result.response.length = 6;
-        // this.topArtists = toRaw(result.response);
+        return toRaw(result.response);
       } catch (err) {
-        this.topArtists = [];
-        console.error('Error loading now playing:', err);
+        console.error('Error fetching artist with the id:', err);
         return err;
       }
-
-      this.fetching = false;
     },
 
+    async browseArtists(value: string) {
+      const url = `${API_URL}` + 'browse_artists?letter=' + value;
+      const options = {
+        headers: {
+          'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
+        }
+      }
+      const response = await fetch(url, options);
+      try {
+        const result = await response.json();
+        this.filteredArtists = this.getArtistsNames(result.response);
+        return result.response;
+      } catch (err) {
+        this.filteredArtists = [];
+        console.error('Error finding artists with input:', err);
+        return err;
+      }
+    },
+
+    getArtistsNames(response: any) {
+      return response.map((item: any) => item.artist)
+    }
   }
 })
