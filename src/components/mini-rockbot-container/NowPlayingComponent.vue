@@ -8,8 +8,7 @@
 import { Options, Vue } from 'vue-class-component';
 import CurrentPlaying from '../now-playing/CurrentPlaying.vue';
 import QueueComponent from '../now-playing/QueueComponent.vue';
-import { useNowPlaying } from '@/stores/nowPlaying';
-import { mapState } from 'pinia';
+import { useMiniRockbot } from '@/stores/miniRockbot';
 
 @Options({
   components: {
@@ -21,11 +20,11 @@ export default class NowPlayingComponent extends Vue {
   nowPlayingResponse = {};
   queue: any[] = [];
   intervalId: any = -1;
-  nowPlayingStore = useNowPlaying();
+  miniRockbotStore = useMiniRockbot();
 
   mounted() {
     this.fetchData();
-    this.nowPlayingStore.$subscribe((value: any) => {
+    this.miniRockbotStore.$subscribe((value: any) => {
       const event = value.events;
       if (event.target) {
         this.nowPlayingResponse = {...event.target.nowPlaying};
@@ -43,12 +42,12 @@ export default class NowPlayingComponent extends Vue {
   }
 
   fetchData() {
-    useNowPlaying()
+    this.miniRockbotStore
       .fetchNowPlaying();
   }
 
   vote(isLiked: boolean, pick_id: number) {
-    useNowPlaying()
+    this.miniRockbotStore
       .postVote(isLiked, pick_id);
   }
 }

@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { useTopArtists } from '@/stores/topArtists';
-import { useNowPlaying } from '@/stores/nowPlaying';
+import { useMiniRockbot } from '@/stores/miniRockbot';
 import { mapState } from 'pinia';
 import TopArtists from '../request-tab/TopArtists.vue';
 import InputComponent from '../shared/auto-complete/InputComponent.vue';
@@ -31,7 +31,7 @@ export default class RequestComponent extends Vue {
   topArtists = [];
   filteredArtists: any[] = [];
   timer: any;
-
+  miniRockbotStore = useMiniRockbot();
   mounted() {
     useTopArtists()
       .fetchTopArtists().then(() => {
@@ -41,7 +41,7 @@ export default class RequestComponent extends Vue {
   }
 
   getArtistDetails(artist_id: number) {
-    useNowPlaying()
+    this.miniRockbotStore
       .getArtist(artist_id);
   }
 
