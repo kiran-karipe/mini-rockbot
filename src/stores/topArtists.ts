@@ -57,8 +57,8 @@ export const useTopArtists = defineStore('topArtists-store', {
       }
     },
 
-    async browseArtists(value: string) {
-      const url = `${API_URL}` + 'browse_artists?letter=' + value;
+    async searchArtists(value: string) {
+      const url = `${API_URL}` + 'search_artists?query=' + value;
       const options = {
         headers: {
           'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
@@ -67,7 +67,7 @@ export const useTopArtists = defineStore('topArtists-store', {
       const response = await fetch(url, options);
       try {
         const result = await response.json();
-        this.filteredArtists = this.getArtistsNames(result.response);
+        this.filteredArtists = toRaw(result.response);
         return result.response;
       } catch (err) {
         this.filteredArtists = [];
