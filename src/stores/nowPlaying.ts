@@ -72,6 +72,25 @@ export const useNowPlaying = defineStore('nowPlaying-store', {
       }
 
       this.fetching = false;
-    }
+    },
+
+    async getArtist(artist_id: number) {
+      const url = `${API_URL}` + 'request_artist?artist_id=' + artist_id;
+      const options = {
+        headers: {
+          'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
+        }
+      }
+      const response = await fetch(url, options);
+      try {
+        const result = await response.json();
+        this.nowPlaying = toRaw(result.response.now_playing);
+        this.queue = toRaw(result.response.queue);
+        return toRaw(result.response);
+      } catch (err) {
+        console.error('Error fetching artist with the id:', err);
+        return err;
+      }
+    },
   }
 })

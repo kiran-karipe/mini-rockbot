@@ -19,39 +19,37 @@ import { mapState } from 'pinia';
 })
 export default class NowPlayingComponent extends Vue {
   nowPlayingResponse = {};
-  queue = [];
-  timer: any = -1;
+  queue: any[] = [];
+  intervalId: any = -1;
+  nowPlayingStore = useNowPlaying();
+
   mounted() {
     this.fetchData();
-    // this.timer = window.setInterval(() => {
-    //   console.log('calling')
-    //   this.fetchData()
-    // }, 30000);
+    this.nowPlayingStore.$subscribe((value: any) => {
+      const event = value.events;
+      if (event.target) {
+        this.nowPlayingResponse = {...event.target.nowPlaying};
+        this.queue = [...event.target.queue]
+      }
+    })
+    this.intervalId = window.setInterval(() => {
+      console.log('calling')
+      this.fetchData()
+    }, 30000);
   }
 
   unmounted() {
-    clearInterval(this.timer);
+    clearInterval(this.intervalId);
   }
 
   fetchData() {
     useNowPlaying()
-      .fetchNowPlaying().then(() => {
-        this.updateDetails();
-      });
+      .fetchNowPlaying();
   }
 
   vote(isLiked: boolean, pick_id: number) {
     useNowPlaying()
-      .postVote(isLiked, pick_id).then(() => {
-      this.updateDetails();
-    })
-  }
-
-  updateDetails() {
-    const nowPlaying = {...mapState(useNowPlaying, {nowPlaying: 'getNowPlaying'}).nowPlaying()}
-    const queue = {...mapState(useNowPlaying, {getQueue: 'getQueue'}).getQueue()}
-    this.nowPlayingResponse = {...nowPlaying};
-    this.queue = queue;
+      .postVote(isLiked, pick_id);
   }
 }
 </script>
