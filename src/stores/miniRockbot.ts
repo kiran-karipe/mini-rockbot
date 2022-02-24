@@ -9,18 +9,14 @@ const options = {
 
 export interface State {
   nowPlaying: any;
-  queue: [],
-  topArtists: [],
-  filteredArtists: []
+  queue: [];
 }
 
 export const useMiniRockbot = defineStore('miniRockbot-store', {
   state: (): State => {
     return {
       nowPlaying: {},
-      queue: [],
-      topArtists: [],
-      filteredArtists: []
+      queue: []
     }
   },
 
@@ -32,14 +28,6 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
     getQueue(state) {
       return state.queue;
     },
-
-    getTopArtists(state) {
-      return state.topArtists;
-    },
-
-    getFilteredArtists(state) {
-      return state.filteredArtists;
-    }
   },
 
   actions: {
@@ -58,16 +46,6 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
     getArtist(artist_id: number) {
       const url = `${API_URL}` + 'request_artist?artist_id=' + artist_id;
       this.post(url, options)
-    },
-
-    fetchTopArtists() {
-      const url = `${API_URL}` + 'top_artists';
-      this.post(url, options);
-    },
-
-    searchArtists(value: string) {
-      const url = `${API_URL}` + 'search_artists?query=' + value;
-      this.post(url, options);
     },
 
     async post(url: string, options: any) {

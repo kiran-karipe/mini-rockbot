@@ -16,7 +16,6 @@
 import { Options, Vue } from 'vue-class-component';
 import { useTopArtists } from '@/stores/topArtists';
 import { useMiniRockbot } from '@/stores/miniRockbot';
-import { mapState } from 'pinia';
 import TopArtists from '../request-tab/TopArtists.vue';
 import InputComponent from '../shared/auto-complete/InputComponent.vue';
 
