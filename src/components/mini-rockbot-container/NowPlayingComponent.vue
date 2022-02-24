@@ -31,10 +31,10 @@ export default class NowPlayingComponent extends Vue {
         this.queue = [...event.target.queue]
       }
     })
-    this.intervalId = window.setInterval(() => {
-      console.log('calling')
-      this.fetchData()
-    }, 30000);
+    // this.intervalId = window.setInterval(() => {
+    //   console.log('calling')
+    //   this.fetchData()
+    // }, 30000);
   }
 
   unmounted() {

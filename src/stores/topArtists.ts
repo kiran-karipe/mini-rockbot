@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 import {toRaw} from 'vue';
 const API_URL = `https://api.rockbot.com/v3/engage/`;
+const options = {
+  headers: {
+    'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
+  }
+}
 
 export const useTopArtists = defineStore('topArtists-store', {
   state: () => {
@@ -23,44 +28,31 @@ export const useTopArtists = defineStore('topArtists-store', {
   actions: {
     async fetchTopArtists() {
       const url = `${API_URL}` + 'top_artists';
-      const options = {
-        headers: {
-          'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
-        }
-      }
+      const response: any = await this.post(url, options);
+      response.length = 6;
+      this.topArtists = response;
+    },
+
+    async searchArtists(value: string) {
+      const url = `${API_URL}` + 'search_artists?query=' + value;
+      const response: any = await this.post(url, options);
+      this.filteredArtists = response;
+    },
+
+    getArtistsNames(response: any) {
+      return response.map((item: any) => item.artist)
+    },
+
+    async post(url: string, options: any) {
       const response = await fetch(url, options);
       try {
         const result = await response.json();
-        result.response.length = 6;
-        this.topArtists = toRaw(result.response);
+        return toRaw(result.response);
       } catch (err) {
         this.topArtists = [];
         console.error('Error fetching top artists:', err);
         return err;
       }
-    },
-
-    async searchArtists(value: string) {
-      const url = `${API_URL}` + 'search_artists?query=' + value;
-      const options = {
-        headers: {
-          'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
-        }
-      }
-      const response = await fetch(url, options);
-      try {
-        const result = await response.json();
-        this.filteredArtists = toRaw(result.response);
-        return result.response;
-      } catch (err) {
-        this.filteredArtists = [];
-        console.error('Error finding artists with input:', err);
-        return err;
-      }
-    },
-
-    getArtistsNames(response: any) {
-      return response.map((item: any) => item.artist)
     }
   }
 })

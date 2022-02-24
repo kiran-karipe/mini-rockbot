@@ -32,12 +32,21 @@ export default class RequestComponent extends Vue {
   filteredArtists: any[] = [];
   timer: any;
   miniRockbotStore = useMiniRockbot();
+  topArtistStore = useTopArtists();
+
   mounted() {
-    useTopArtists()
-      .fetchTopArtists().then(() => {
-        const topArtists = {...mapState(useTopArtists, {topArtists: 'getTopArtists'}).topArtists()}
-        this.topArtists = {...topArtists};
-      });
+    this.topArtistStore
+      .fetchTopArtists();
+
+    this.topArtistStore.$subscribe((value: any) => {
+      const event = value.events;
+      if (event.target && event.key === 'topArtists') {
+        this.topArtists = {...event.target.topArtists};
+      }
+      if (event.target && event.key === 'filteredArtists') {
+        this.filteredArtists = [...event.target.filteredArtists]
+      }
+    })
   }
 
   getArtistDetails(artist_id: number) {
@@ -47,11 +56,8 @@ export default class RequestComponent extends Vue {
 
   searchArtists(value: string) {
     if (value) {
-      useTopArtists()
-      .searchArtists(value).then(() => {
-        const filteredArtists = {...mapState(useTopArtists, {searchArtists: 'getFilteredArtists'}).searchArtists()}
-        this.filteredArtists = {...filteredArtists};
-      });
+      this.topArtistStore
+      .searchArtists(value);
     }
   }
 }
