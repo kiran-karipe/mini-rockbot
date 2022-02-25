@@ -26,5 +26,6 @@ export default class App extends Vue {}
   max-width: 350px;
   border: 1px #dcdfe6 solid;
   min-height: 550px;
+  position: relative;
 }
 </style>

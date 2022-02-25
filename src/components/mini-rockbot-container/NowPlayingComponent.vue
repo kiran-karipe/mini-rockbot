@@ -9,6 +9,7 @@ import { Options, Vue } from 'vue-class-component';
 import CurrentPlaying from '../now-playing/CurrentPlaying.vue';
 import QueueComponent from '../now-playing/QueueComponent.vue';
 import { useMiniRockbot } from '@/stores/miniRockbot';
+import { ElMessage } from 'element-plus'
 
 @Options({
   components: {
@@ -25,6 +26,7 @@ export default class NowPlayingComponent extends Vue {
   mounted() {
     this.fetchData();
     this.miniRockbotStore.$subscribe((value: any) => {
+      this.open();
       const event = value.events;
       if (event.target) {
         this.nowPlayingResponse = {...event.target.nowPlaying};
@@ -41,6 +43,12 @@ export default class NowPlayingComponent extends Vue {
     clearInterval(this.intervalId);
   }
 
+  open = () => {
+    ElMessage({
+      message: 'queue updated.',
+      type: 'success',
+    })
+  }
   fetchData() {
     this.miniRockbotStore
       .fetchNowPlaying();
