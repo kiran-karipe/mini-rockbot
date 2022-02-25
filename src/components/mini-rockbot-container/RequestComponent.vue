@@ -7,6 +7,7 @@
   <el-divider class="divider"></el-divider>
   <InputComponent
     :suggestion-list="filteredArtists"
+    :show-list="showList"
     @query-search="searchArtists"
     @select-artist="getArtistDetails"
   />
@@ -29,7 +30,7 @@ import InputComponent from '../shared/auto-complete/InputComponent.vue';
 export default class RequestComponent extends Vue {
   topArtists = [];
   filteredArtists: any[] = [];
-  timer: any;
+  showList = false;
   miniRockbotStore = useMiniRockbot();
   topArtistStore = useTopArtists();
 
@@ -44,6 +45,7 @@ export default class RequestComponent extends Vue {
       }
       if (event.target && event.key === 'filteredArtists') {
         this.filteredArtists = [...event.target.filteredArtists]
+        this.showList = true;
       }
     })
   }
@@ -57,6 +59,9 @@ export default class RequestComponent extends Vue {
     if (value) {
       this.topArtistStore
       .searchArtists(value);
+    } else {
+      this.filteredArtists = [];
+      this.showList = false;
     }
   }
 }

@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import {toRaw} from 'vue';
+import * as nowPlaying from '../__mocks___/now-playing.json';
+
 const API_URL = `https://api.rockbot.com/v3/engage/`;
 const options = {
   headers: {
@@ -51,7 +53,10 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
     async post(url: string, options: any) {
       const response = await fetch(url, options);
       try {
-        const result = await response.json();
+        let result = await response.json();
+        if (!result.response.now_playing) {
+          result = nowPlaying;
+        }
         this.nowPlaying = toRaw(result.response.now_playing);
         this.queue = toRaw(result.response.queue);
       } catch (err) {

@@ -1,5 +1,5 @@
 <template>
-  <el-tabs :tab-position="'bottom'" stretch style="height: 200px" class="demo-tabs">
+  <el-tabs :tab-position="'bottom'" stretch class="demo-tabs">
     <el-tab-pane label="Now Playing"><NowPlayingComponent /></el-tab-pane>
     <el-tab-pane label="Request" class="request"><RequestComponent /></el-tab-pane>
   </el-tabs>
@@ -21,6 +21,6 @@ export default class TabsComponent extends Vue {}
 
 <style scoped>
 .request {
-  min-height: 400px;
+  min-height: 436px;
 }
 </style>

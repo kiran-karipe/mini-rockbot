@@ -47,6 +47,7 @@ export default class NowPlayingComponent extends Vue {
     ElMessage({
       message: 'queue updated.',
       type: 'success',
+      center: true,
     })
   }
   fetchData() {

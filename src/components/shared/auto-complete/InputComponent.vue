@@ -4,9 +4,9 @@ import { defineProps } from "vue";
 import Autocomplete from 'vue3-autocomplete';
 
 const input = ref('')
-let isPopperActive = true;
 interface Props {
   suggestionList: [any]
+  showList: boolean
 }
 const props = defineProps<Props>();
 </script>  
@@ -20,8 +20,8 @@ const props = defineProps<Props>();
       placeholder="search (eg., 80s)"
       class="el-input__inner input"
   ></Autocomplete>
-  <div class="list-popper" v-if="isPopperActive">
-    <ul class="autocomplete-suggestion__list" @blur="isPopperActive = false">
+  <div class="list-popper" v-if="props.showList">
+    <ul class="autocomplete-suggestion__list">
       <li v-for="item in props.suggestionList" :key="item"
         class="autocomplete-suggestion__list autocomplete-suggestion__list-item textAlign" 
         role="option" aria-selected="false"

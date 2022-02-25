@@ -24,7 +24,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-
 .artist {
   cursor: pointer;
   margin: 2%;
