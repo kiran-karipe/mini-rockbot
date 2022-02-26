@@ -31,12 +31,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
 }
 .autocomplete-suggestion__list .autocomplete-suggestion__list-item + .list-item {
   margin-top: 10px;
-}
-.textAlign {
-  text-align: center;
 }
 
 ::-webkit-scrollbar {

@@ -1,16 +1,16 @@
 <template>
-  <div class="header">
-    <h3 class="title">Mini Rockbot</h3>
+  <div class="app-header">
+    <h3 class="app-title">Mini Rockbot</h3>
   </div>
 </template>
 
 <style scoped>
-.title {
+.app-title {
   font-size: 25px;
   margin: 0%;
   padding-top: 2%;
 }
-.header{
+.app-header{
   min-height: 45px;
   background-color: #409eff;
 }

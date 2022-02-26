@@ -1,8 +1,8 @@
 <template>
-  <p class="title">Top Artists</p>
   <TopArtists
     :top-artists="topArtists"
     @get-artist="getArtistDetails"
+    @browse-artists="browseArtists"
   />
   <el-divider class="divider"></el-divider>
   <InputComponent
@@ -53,6 +53,7 @@ export default class RequestComponent extends Vue {
   getArtistDetails(artist_id: number) {
     this.miniRockbotStore
       .getArtist(artist_id);
+    this.showList = false;
   }
 
   searchArtists(value: string) {
@@ -64,16 +65,14 @@ export default class RequestComponent extends Vue {
       this.showList = false;
     }
   }
+
+  browseArtists() {
+    console.log('browse artists')
+  }
 }
 </script>
 
 <style scoped>
-.title {
-  text-align: left;
-  margin: 2% 0 3% 0%;
-  padding-left: 3%;
-  font-weight: bold;
-}
 .divider {
   margin: 3% 0 3% 0;
 }

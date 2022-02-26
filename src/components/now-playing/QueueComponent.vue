@@ -9,23 +9,31 @@
 </script>
 
 <template>
-  <p class="title">Coming up</p>
+  <p class="queue-title">Coming up</p>
   <ul class="infinite-list" style="overflow: auto">
     <li v-for="item in props.queue" :key="item" class="infinite-list-item">
-      <div class="songDetails">
-        <p class="artist">{{item.artist}}</p>
-        <p class="song">{{item.song}}</p>
+      <div class="item-details">
+        <p class="item-name">{{item.artist}}</p>
+        <p class="item-text">{{item.song}}</p>
       </div>
-      <div class="voting">
-        <LikeComponent @click="$emit('vote-up',true, item.pick_id)" :counter="item.likes" :vote-up="true"/>
-        <LikeComponent @click="$emit('vote-up',false, item.pick_id)" :counter="item.dislikes" :vote-up="false"/>
+      <div class="like-button-div">
+        <LikeComponent
+          @click="$emit('vote-up',true, item.pick_id)"
+          :counter="item.likes"
+          :vote-up="true"
+        />
+        <LikeComponent
+          @click="$emit('vote-up',false, item.pick_id)"
+          :counter="item.dislikes"
+          :vote-up="false"
+        />
       </div>
     </li>
   </ul>
 </template>
 
 <style scoped>
-.title {
+.queue-title {
   text-align: left;
   margin: 0;
   padding-left: 3%;
@@ -50,7 +58,7 @@
   margin-top: 10px;
 }
 
-.songDetails {
+.item-details {
   width: 50%;
   padding-left: 3%;
   align-items: center;
@@ -58,7 +66,7 @@
   white-space: nowrap;
 }
 
-.artist {
+.item-name {
   font-size: 12px;
   font-weight: bold;
   margin: 0%;
@@ -66,7 +74,7 @@
   color: black;
 }
 
-.song {
+.item-text {
   font-size: 12px;
   margin: 0%;
   text-align: left;
@@ -74,7 +82,7 @@
   text-overflow: ellipsis;
 }
 
-.voting {
+.like-button-div {
   margin-right: 2%;
   width: 50%;
   display: flex;
