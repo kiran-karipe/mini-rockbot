@@ -10,6 +10,7 @@
 </script>
 
 <template>
+  <!-- Like and dislike component to vote on the queue -->
   <el-button type="primary">
     <span>{{props.counter}} &nbsp;</span>
     <Icon icon="bxs:like" v-if="props.voteUp" />

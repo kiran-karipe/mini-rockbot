@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { propsToAttrMap } from '@vue/shared';
 import { ref } from 'vue';
 import { defineProps } from "vue";
 
@@ -17,6 +16,8 @@ function getAlphabets() {
 </script> 
 
 <template>
+  <!-- this is a dialog component to the letters from A-Z -->
+  <!-- User should be able to pick the letter and browse results from the letter -->
   <el-dialog
     v-if="props.isVisible"
     v-model="dialogVisible"

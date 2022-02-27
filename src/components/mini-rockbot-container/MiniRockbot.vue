@@ -10,9 +10,9 @@ import TabsComponent from '../TabsComponent.vue';
 import HeaderComponent from '../HeaderComponent.vue';
 
 @Options({
-  components: {
-    TabsComponent,
-    HeaderComponent
+  components: { // divided the application into two components
+    TabsComponent, // tabs component is place where entire app runs
+    HeaderComponent // a static component for header
   },
 })
 

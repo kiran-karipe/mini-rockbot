@@ -1,14 +1,15 @@
 <script setup lang="ts">
   import { defineProps } from "vue";
   interface Props {
-    topArtists: [any]
+    topArtists: [any] // TopArtists component receives topArtists from the response
   }
   const props = defineProps<Props>();
-  console.log(props.topArtists)
 </script>
 <template>
   <p class="title">Top Artists</p>
   <div class="avatars-div">
+    <!-- creating for each artist from the response and emit events on click -->
+    <!-- this $emit is the event emitter to the parent component -->
     <el-avatar v-for="artist in props.topArtists"
       class="avatar-el" :key="artist.artist_id"
       shape="circle" :size="60"

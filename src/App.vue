@@ -1,4 +1,5 @@
 <template>
+  <!-- This is how we render a component inside another component -->
   <MiniRockbot />
 </template>
 
@@ -8,7 +9,7 @@ import MiniRockbot from './components/mini-rockbot-container/MiniRockbot.vue';
 
 @Options({
   components: {
-    MiniRockbot,
+    MiniRockbot, // MiniRockbot is main container component of our app
   },
 })
 export default class App extends Vue {}

@@ -1,5 +1,7 @@
 <script setup lang="ts">
+  // defining props from vue to receive props from the parent component
   import { defineProps } from "vue";
+  //creating an interface on what props to be received
   interface Props {
     nowPlaying: any
   }
@@ -7,52 +9,17 @@
 </script>
 
 <template>
+  <!-- this template shows what's playing now -->
   <p class="title">Playing now</p>
   <div class="main">
     <el-avatar shape="square" :size="80" :src="props.nowPlaying.artwork_small"></el-avatar>
-    <div class="songDetails">
-      <p class="artist">{{props.nowPlaying.artist}}</p>
-      <span class="song">{{props.nowPlaying.song}}</span>
+    <div class="song-details">
+      <p class="artist-name">{{props.nowPlaying.artist}}</p>
+      <span class="artist-song">{{props.nowPlaying.song}}</span>
     </div>
   </div>
 </template>
 
 <style scoped>
-.title {
-  text-align: left;
-  margin: 0;
-  padding-left: 3%;
-  font-weight: bold;
-  color: #409eff;
-}
-.main {
-  display: flex;
-}
-
-.el-avatar {
-  margin-left: 3%;
-}
-
-.songDetails {
-  width: 70%;
-  padding-top: 2%;
-  margin-left: 5%;
-  overflow: hidden;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.artist {
-  font-weight: bold;
-  margin: 0%;
-  color: #409eff;
-}
-
-.song {
-  font-size: 14px;
-  color: #409eff;
-  text-align: left;
-  text-overflow: ellipsis;
-}
-
+@import './CurrentPlaying.css';
 </style>
