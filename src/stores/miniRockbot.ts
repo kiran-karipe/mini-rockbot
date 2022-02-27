@@ -9,12 +9,18 @@ const options = {
   }
 };
 
+// creating an interface for the state. We can also describe the properties for nowPlaying and queue and maintain across the app.
 export interface State {
   nowPlaying: any;
   queue: [];
 }
 
+// Pinia is a state management library for Vue which allows us to share a state across components
+// miniRockbot store is common store used over the application.
+// this store mainly contains the state of nowPlaying and the queue.
 export const useMiniRockbot = defineStore('miniRockbot-store', {
+
+  // this is initial state object
   state: (): State => {
     return {
       nowPlaying: {},
@@ -22,22 +28,28 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
     }
   },
 
+  // getter functions mainly used to access a particular object of the state in components
   getters: {
+    // this method will return the nowPlaying information from the state
     getNowPlaying(state) {
       return state.nowPlaying;
     },
 
+    // this method will return the queue information from the state 
     getQueue(state) {
       return state.queue;
     },
   },
 
+  // this is good place to define business logic and make asynchronous calls
   actions: {
+    // this is to fetch the nowplaying and queue data
     fetchNowPlaying() {
       const url = `${API_URL}` + 'now_playing?queue=1';
       this.post(url, options);
     },
 
+    // this method is post a vote
     postVote(isLiked: boolean, pick_id: number) {
       let vote = 'vote_up';
       if (!isLiked) vote = 'vote_down';
@@ -45,11 +57,14 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
       this.post(url, options);
     },
 
+    // this method is to get a song from the selected artist and add it to the queue
     getArtist(artist_id: number) {
       const url = `${API_URL}` + 'request_artist?artist_id=' + artist_id;
       this.post(url, options)
     },
 
+    // this is a common post method for all the above methods which updates the nowPlaying and queue of the state
+    // when we updated the state the components are automatically informed of these changes if we are subscribing
     async post(url: string, options: any) {
       const response = await fetch(url, options);
       try {
