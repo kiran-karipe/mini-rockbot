@@ -16,7 +16,7 @@
       @click="$emit('get-artist', artist.artist_id)"
     ></el-avatar>
     <el-avatar class="avatar-el more-avatar" :size="60"
-      @click="$emit('browse-artists')"
+      @click="$emit('open-dialog')"
     >
       more...
     </el-avatar>

@@ -2,7 +2,7 @@
   <TopArtists
     :top-artists="topArtists"
     @get-artist="getArtistDetails"
-    @browse-artists="browseArtists"
+    @open-dialog="openDialog"
   />
   <el-divider class="divider"></el-divider>
   <InputComponent
@@ -11,6 +11,10 @@
     @query-search="searchArtists"
     @select-artist="getArtistDetails"
   />
+  <DialogComponent
+    :is-visible="dialogVisible"
+    @browse-artists="browseArtists"
+    />
 </template>
 
 <script lang="ts">
@@ -19,11 +23,13 @@ import { useTopArtists } from '@/stores/topArtists';
 import { useMiniRockbot } from '@/stores/miniRockbot';
 import TopArtists from '../request-tab/TopArtists.vue';
 import InputComponent from '../shared/auto-complete/InputComponent.vue';
+import DialogComponent from '../shared/dialog-component/DialogComponent.vue';
 
 @Options({
   components: {
     TopArtists,
-    InputComponent
+    InputComponent,
+    DialogComponent
   }
 })
 
@@ -33,6 +39,7 @@ export default class RequestComponent extends Vue {
   showList = false;
   miniRockbotStore = useMiniRockbot();
   topArtistStore = useTopArtists();
+  dialogVisible = false;
 
   mounted() {
     this.topArtistStore
@@ -46,6 +53,7 @@ export default class RequestComponent extends Vue {
       if (event.target && event.key === 'filteredArtists') {
         this.filteredArtists = [...event.target.filteredArtists]
         this.showList = true;
+        this.dialogVisible = false;
       }
     })
   }
@@ -66,8 +74,18 @@ export default class RequestComponent extends Vue {
     }
   }
 
-  browseArtists() {
-    console.log('browse artists')
+  browseArtists(letter: string) {
+    if (letter) {
+      this.topArtistStore
+      .browseArtists(letter);
+    } else {
+      this.filteredArtists = [];
+      this.showList = false;
+    }
+  }
+
+  openDialog() {
+    this.dialogVisible = true;
   }
 }
 </script>

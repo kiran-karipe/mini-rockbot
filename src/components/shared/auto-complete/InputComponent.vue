@@ -18,7 +18,7 @@ const props = defineProps<Props>();
       id="artists"
       @input="$emit('query-search', input)"
       :debounce="1000"
-      placeholder="(eg., 80s)"
+      placeholder="search"
       class="el-input__inner input"
   ></Autocomplete>
   <div class="list-popper" v-if="props.showList">

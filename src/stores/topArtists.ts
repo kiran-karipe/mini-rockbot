@@ -7,8 +7,13 @@ const options = {
   }
 }
 
+export interface Artists {
+  topArtists: any[],
+  filteredArtists: any[]
+}
+
 export const useTopArtists = defineStore('topArtists-store', {
-  state: () => {
+  state: (): Artists => {
     return {
       topArtists: [],
       filteredArtists: []
@@ -30,13 +35,19 @@ export const useTopArtists = defineStore('topArtists-store', {
       const url = `${API_URL}` + 'top_artists';
       const response: any = await this.post(url, options);
       response.length = 6;
-      this.topArtists = response;
+      this.topArtists = [...response];
     },
 
     async searchArtists(value: string) {
       const url = `${API_URL}` + 'search_artists?query=' + value;
       const response: any = await this.post(url, options);
-      this.filteredArtists = response;
+      this.filteredArtists = [...response];
+    },
+
+    async browseArtists(letter: string) {
+      const url = `${API_URL}` + 'browse_artists?letter=' + letter;
+      const response: any = await this.post(url, options);
+      this.filteredArtists = [...response];
     },
 
     getArtistsNames(response: any) {
