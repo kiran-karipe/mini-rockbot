@@ -7,7 +7,7 @@
     @open-dialog="openDialog"
   />
   <el-divider class="divider"></el-divider>
-
+  <SpinnerComponent v-if="isSpinnerActive"/>
   <!-- InputComponent is a search field to search artists -->
   <!-- this is a auto-complete component -->
   <InputComponent
@@ -31,12 +31,14 @@ import TopArtists from '../request-tab/TopArtists.vue';
 import InputComponent from '../shared/auto-complete/InputComponent.vue';
 import DialogComponent from '../shared/dialog-component/DialogComponent.vue';
 import { TopArtist } from "@/interfaces/TopArtist";
+import SpinnerComponent from '../shared/SpinnerComponent.vue';
 
 @Options({
   components: {
     TopArtists,
     InputComponent,
-    DialogComponent
+    DialogComponent,
+    SpinnerComponent
   }
 })
 
@@ -48,6 +50,7 @@ export default class RequestComponent extends Vue {
   miniRockbotStore = useMiniRockbot();
   topArtistStore = useTopArtists();
   dialogVisible = false;
+  isSpinnerActive = false;
 
   mounted() {
     // using topArtistStore to fetch top-artists from the backend
@@ -56,6 +59,7 @@ export default class RequestComponent extends Vue {
 
     // subscribing to the store and listening to changes and updating
     this.topArtistStore.$subscribe((value: any) => {
+      this.isSpinnerActive = false;
       const event = value.events;
       if (event.target && event.key === 'topArtists') {
         this.topArtists = {...event.target.topArtists};
@@ -66,10 +70,15 @@ export default class RequestComponent extends Vue {
         this.dialogVisible = false;
       }
     })
+
+    this.miniRockbotStore.$subscribe((value: any) => {
+      this.isSpinnerActive = false;
+    })
   }
 
   // This is method is used to make an api call to with selected artist id.
   getArtistDetails(artist_id: number) {
+    this.isSpinnerActive = true;
     this.miniRockbotStore
       .getArtist(artist_id);
     this.showList = false;
@@ -78,6 +87,7 @@ export default class RequestComponent extends Vue {
   // this method is used to fetch artists using store.
   searchArtists(value: string) {
     if (value) {
+      this.isSpinnerActive = true;
       this.topArtistStore
       .searchArtists(value);
     } else {
@@ -89,6 +99,7 @@ export default class RequestComponent extends Vue {
   // similar to searchArtists method, it takes a letter and browse artists with letter a first character in the name.
   browseArtists(letter: string) {
     if (letter) {
+      this.isSpinnerActive = true;
       this.topArtistStore
       .browseArtists(letter);
     } else {

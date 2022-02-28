@@ -4,9 +4,9 @@
   <CurrentPlaying :now-playing="nowPlayingResponse" />
   <!--here :now-playing is dynamic prop passed to the child component, we can also pass static props by removing : before the prop-->
   <el-divider class="divider"></el-divider>
+  <SpinnerComponent v-if="isSpinnerActive"/>
   <QueueComponent :queue="queue" @vote-up="vote"/>
   <!-- here @vote-up is an event coming from the child component by emitting -->
-
 </template>
 
 <script lang="ts">
@@ -16,11 +16,13 @@ import QueueComponent from '../now-playing/QueueComponent.vue';
 import { useMiniRockbot } from '@/stores/miniRockbot';
 import { ElMessage } from 'element-plus'
 import { NowPlaying } from '../../interfaces/NowPlaying';
+import SpinnerComponent from '../shared/SpinnerComponent.vue';
 
 @Options({
   components: {
     CurrentPlaying,
-    QueueComponent
+    QueueComponent,
+    SpinnerComponent
   }
 })
 export default class NowPlayingComponent extends Vue {
@@ -28,6 +30,7 @@ export default class NowPlayingComponent extends Vue {
   queue: NowPlaying[] = [];
   intervalId = -1;
   miniRockbotStore = useMiniRockbot();
+  isSpinnerActive = false;
 
   // mounted is lifecycle hooks provided by vue 3 and it is a callback called when component is mounted,
   // best place invoke functions to get data from the backend
@@ -35,6 +38,7 @@ export default class NowPlayingComponent extends Vue {
     this.fetchData(); // fetching data for nowplaying and queue
     // this is a store subscriber where you subscribe to the store and trigger when there is a change in the store.
     this.miniRockbotStore.$subscribe((value: any) => {
+      this.isSpinnerActive = false;
       this.queueUpdated();
       const event = value.events;
       // listening to the changes in the store and re-assigning the values in the component.
@@ -69,12 +73,14 @@ export default class NowPlayingComponent extends Vue {
 
   // this method is using the store and making an api call using store(Pinia)
   fetchData() {
+    this.isSpinnerActive = true;
     this.miniRockbotStore
       .fetchNowPlaying();
   }
 
   // similar to fetchData method above, this method is used to make an api call whenever there is a vote-up or vote-down happened on the song.
   vote(isLiked: boolean, pick_id: number) {
+    this.isSpinnerActive = true;
     this.miniRockbotStore
       .postVote(isLiked, pick_id);
   }
