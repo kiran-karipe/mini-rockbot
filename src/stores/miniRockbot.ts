@@ -3,10 +3,9 @@ import {toRaw} from 'vue';
 import * as nowPlaying from '../__mocks__/now-playing.json';
 import { NowPlaying } from "@/interfaces/NowPlaying";
 
-const API_URL = `https://api.rockbot.com/v3/engage/`;
 const options = {
   headers: {
-    'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
+    'Authorization': process.env.VUE_APP_API_KEY
   }
 };
 
@@ -46,7 +45,7 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
   actions: {
     // this is to fetch the nowplaying and queue data
     fetchNowPlaying() {
-      const url = `${API_URL}` + 'now_playing?queue=1';
+      const url = `${process.env.VUE_APP_API_URL}` + 'now_playing?queue=1';
       this.post(url, options);
     },
 
@@ -54,13 +53,13 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
     postVote(isLiked: boolean, pick_id: number) {
       let vote = 'vote_up';
       if (!isLiked) vote = 'vote_down';
-      const url = `${API_URL}` + `${vote}` + '?pick_id=' + pick_id;
+      const url = `${process.env.VUE_APP_API_URL}` + `${vote}` + '?pick_id=' + pick_id;
       this.post(url, options);
     },
 
     // this method is to get a song from the selected artist and add it to the queue
     getArtist(artist_id: number) {
-      const url = `${API_URL}` + 'request_artist?artist_id=' + artist_id;
+      const url = `${process.env.VUE_APP_API_URL}` + 'request_artist?artist_id=' + artist_id;
       this.post(url, options)
     },
 

@@ -2,10 +2,9 @@ import { defineStore } from "pinia";
 import {toRaw} from 'vue';
 import { TopArtist } from "@/interfaces/TopArtist";
 
-const API_URL = `https://api.rockbot.com/v3/engage/`;
 const options = {
   headers: {
-    'Authorization': '2ab742c917f872aa88644bc8f995e03159b2'
+    'Authorization': process.env.VUE_APP_API_KEY
   }
 }
 
@@ -43,7 +42,7 @@ export const useTopArtists = defineStore('topArtists-store', {
   actions: {
     // this is to fetch the topArtists data and limiting the length to 6
     async fetchTopArtists() {
-      const url = `${API_URL}` + 'top_artists';
+      const url = `${process.env.VUE_APP_API_URL}` + 'top_artists';
       const response = await this.post(url, options);
       response.length = 6;
       this.topArtists = [...response];
@@ -51,14 +50,14 @@ export const useTopArtists = defineStore('topArtists-store', {
 
     // this method is to fetch the results searchArtists
     async searchArtists(value: string) {
-      const url = `${API_URL}` + 'search_artists?query=' + value;
+      const url = `${process.env.VUE_APP_API_URL}` + 'search_artists?query=' + value;
       const response = await this.post(url, options);
       this.filteredArtists = [...response];
     },
 
     // this method is to fetch the results browseArtists
     async browseArtists(letter: string) {
-      const url = `${API_URL}` + 'browse_artists?letter=' + letter;
+      const url = `${process.env.VUE_APP_API_URL}` + 'browse_artists?letter=' + letter;
       const response = await this.post(url, options);
       this.filteredArtists = [...response];
     },
