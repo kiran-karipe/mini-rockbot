@@ -10,7 +10,7 @@
 
 <template>
   <!-- this component will the list of songs that are in the queue -->
-  <p class="queue-title">Coming up</p>
+  <p class="queue-title">{{ $t('app.queue') }}</p>
   <ul class="infinite-list" style="overflow: auto">
     <li v-for="item in props.queue" :key="item" class="infinite-list-item">
       <div class="item-details">

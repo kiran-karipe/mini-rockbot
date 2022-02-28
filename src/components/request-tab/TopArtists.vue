@@ -6,7 +6,7 @@
   const props = defineProps<Props>();
 </script>
 <template>
-  <p class="title">Top Artists</p>
+  <p class="title">{{ $t('app.topArtists') }}</p>
   <div class="avatars-div">
     <!-- creating for each artist from the response and emit events on click -->
     <!-- this $emit is the event emitter to the parent component -->
@@ -19,7 +19,7 @@
     <el-avatar class="avatar-el more-avatar" :size="60"
       @click="$emit('open-dialog')"
     >
-      more...
+      {{ $t('app.more') }}
     </el-avatar>
   </div>
 </template>

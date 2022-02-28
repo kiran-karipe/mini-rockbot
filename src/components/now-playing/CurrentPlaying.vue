@@ -10,7 +10,7 @@
 
 <template>
   <!-- this template shows what's playing now -->
-  <p class="title">Now Playing</p>
+  <p class="title">{{ $t('app.playing') }}</p>
   <div class="main">
     <el-avatar shape="square" :size="80" :src="props.nowPlaying.artwork_small"></el-avatar>
     <div class="song-details">

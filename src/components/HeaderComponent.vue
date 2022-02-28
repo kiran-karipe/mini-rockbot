@@ -1,6 +1,6 @@
 <template>
   <div class="app-header">
-    <h3 class="app-title">Mini Rockbot</h3>
+    <h3 class="app-title">{{ $t('app.title') }}</h3>
   </div>
 </template>
 

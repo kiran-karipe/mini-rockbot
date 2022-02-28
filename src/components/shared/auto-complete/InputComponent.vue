@@ -14,7 +14,7 @@ const props = defineProps<Props>();
 <template>
   <!-- this is autocomplete component to search artists from the given input -->
   <!-- this input will passed as a query to get the results -->
-  <p class="title">Search playlists</p>
+  <p class="title">{{ $t('app.searchArtists') }}</p>
   <Autocomplete
       v-model="input"
       id="artists"
