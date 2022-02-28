@@ -15,6 +15,7 @@ import CurrentPlaying from '../now-playing/CurrentPlaying.vue';
 import QueueComponent from '../now-playing/QueueComponent.vue';
 import { useMiniRockbot } from '@/stores/miniRockbot';
 import { ElMessage } from 'element-plus'
+import { NowPlaying } from '../../interfaces/NowPlaying';
 
 @Options({
   components: {
@@ -23,9 +24,9 @@ import { ElMessage } from 'element-plus'
   }
 })
 export default class NowPlayingComponent extends Vue {
-  nowPlayingResponse = {};
-  queue: any[] = [];
-  intervalId: any = -1;
+  nowPlayingResponse: NowPlaying | null = null;
+  queue: NowPlaying[] = [];
+  intervalId = -1;
   miniRockbotStore = useMiniRockbot();
 
   // mounted is lifecycle hooks provided by vue 3 and it is a callback called when component is mounted,

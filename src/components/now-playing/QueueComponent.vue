@@ -1,9 +1,10 @@
 <script setup lang="ts">
   import { defineProps } from "vue";
   import LikeComponent from '../shared/LikeComponent.vue';
+  import { NowPlaying } from '@/interfaces/NowPlaying';
 
   interface Props {
-    queue: any[]
+    queue: NowPlaying[]
   }
   const props = defineProps<Props>();
 </script>
@@ -12,7 +13,7 @@
   <!-- this component will the list of songs that are in the queue -->
   <p class="queue-title">{{ $t('app.queue') }}</p>
   <ul class="infinite-list" style="overflow: auto">
-    <li v-for="item in props.queue" :key="item" class="infinite-list-item">
+    <li v-for="item in props.queue" :key="item.artist_id" class="infinite-list-item">
       <div class="item-details">
         <p class="item-name">{{item.artist}}</p>
         <p class="item-text">{{item.song}}</p>

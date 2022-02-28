@@ -2,10 +2,11 @@
 import { ref } from 'vue';
 import { defineProps } from "vue";
 import Autocomplete from 'vue3-autocomplete';
+import { TopArtist } from "@/interfaces/TopArtist";
 
 const input = ref('')
 interface Props {
-  suggestionList: [any]
+  suggestionList: TopArtist[]
   showList: boolean
 }
 const props = defineProps<Props>();
@@ -26,7 +27,7 @@ const props = defineProps<Props>();
   <!-- this shows the list of the search results from the given input -->
   <div class="list-popper" v-if="props.showList">
     <ul class="autocomplete-suggestion__list">
-      <li v-for="item in props.suggestionList" :key="item"
+      <li v-for="item in props.suggestionList" :key="item.artist_id"
         class="autocomplete-suggestion__list autocomplete-suggestion__list-item" 
         role="option" aria-selected="false"
         @click="$emit('select-artist', item.artist_id)">

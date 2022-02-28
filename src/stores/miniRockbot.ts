@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import {toRaw} from 'vue';
 import * as nowPlaying from '../__mocks__/now-playing.json';
+import { NowPlaying } from "@/interfaces/NowPlaying";
 
 const API_URL = `https://api.rockbot.com/v3/engage/`;
 const options = {
@@ -11,8 +12,8 @@ const options = {
 
 // creating an interface for the state. We can also describe the properties for nowPlaying and queue and maintain across the app.
 export interface State {
-  nowPlaying: any;
-  queue: [];
+  nowPlaying: NowPlaying | null;
+  queue: NowPlaying[];
 }
 
 // Pinia is a state management library for Vue which allows us to share a state across components
@@ -23,7 +24,7 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
   // this is initial state object
   state: (): State => {
     return {
-      nowPlaying: {},
+      nowPlaying: null,
       queue: []
     }
   },
@@ -75,7 +76,7 @@ export const useMiniRockbot = defineStore('miniRockbot-store', {
         this.nowPlaying = toRaw(result.response.now_playing);
         this.queue = toRaw(result.response.queue);
       } catch (err) {
-        this.nowPlaying = {};
+        this.nowPlaying = null;
         this.queue = [];
         console.error('Error loading now playing:', err);
         return err;

@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { defineProps } from "vue";
+  import { TopArtist } from "@/interfaces/TopArtist";
   interface Props {
-    topArtists: [any] // TopArtists component receives topArtists from the response
+    topArtists: TopArtist[] // TopArtists component receives topArtists from the response
   }
   const props = defineProps<Props>();
 </script>

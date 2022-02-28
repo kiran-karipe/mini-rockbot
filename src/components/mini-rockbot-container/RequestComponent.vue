@@ -30,6 +30,7 @@ import { useMiniRockbot } from '@/stores/miniRockbot';
 import TopArtists from '../request-tab/TopArtists.vue';
 import InputComponent from '../shared/auto-complete/InputComponent.vue';
 import DialogComponent from '../shared/dialog-component/DialogComponent.vue';
+import { TopArtist } from "@/interfaces/TopArtist";
 
 @Options({
   components: {
@@ -41,8 +42,8 @@ import DialogComponent from '../shared/dialog-component/DialogComponent.vue';
 
 export default class RequestComponent extends Vue {
   // initializing variables for the component
-  topArtists = [];
-  filteredArtists: any[] = [];
+  topArtists: TopArtist[] = [];
+  filteredArtists: TopArtist[] = [];
   showList = false;
   miniRockbotStore = useMiniRockbot();
   topArtistStore = useTopArtists();
