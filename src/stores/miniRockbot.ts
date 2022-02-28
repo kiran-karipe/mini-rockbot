@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {toRaw} from 'vue';
-import * as nowPlaying from '../__mocks___/now-playing.json';
+import * as nowPlaying from '../__mocks__/now-playing.json';
 
 const API_URL = `https://api.rockbot.com/v3/engage/`;
 const options = {
